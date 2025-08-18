@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+.container {
+  width: 100%;
+  padding: 36px 156px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 19px;
+  padding: 30px;
+  border: 1px solid rgba(128, 128, 128, 1);
+}
+
+.form__label {
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  padding: 8px 16px;
+  font-family: Montserrat;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 4%;
+  border-radius: 4px;
+  border: 1px solid rgba(128, 128, 128, 1);
+  outline: none;
+}
+
+input:hover {
+  border: 1px solid rgba(0, 0, 0, 1);
+}
+
+input:active,
+input:focus {
+  border: 1px solid rgba(78, 117, 255, 1);
+}
+
+input:disabled {
+  border: 1px solid rgba(128, 128, 128, 1);
+  color: rgba(128, 128, 128, 1);
+}
+
+button {
+  padding: 8px 16px;
+  font-family: Montserrat;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 4%;
+  border: none;
+  border-radius: 8px;
+  background-color: rgba(78, 117, 255, 1);
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: rgba(108, 140, 255, 1);
+}
+
+button:disabled {
+  background-color: rgba(207, 207, 207, 1);
+  color: rgba(152, 152, 152, 1);
+}
+
+.form {
+  width: fit-content;
+  display: flex;
+  gap: 8px;
+}
+
+.timer {
+  display: flex;
+  gap: 24px;
+}
+
+.timer .field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: center;
+}
+
+.timer .field .value {
+  font-family: Montserrat;
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 48px;
+  letter-spacing: 4%;
+  color: rgba(46, 47, 66, 1);
+  width: 100%;
+}
+
+.timer .field .label {
+  font-family: Montserrat;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0%;
+
+  margin-inline: 5.5px;
+  color: rgba(46, 47, 66, 1);
+}
