@@ -28,25 +28,33 @@ function convertMs(ms) {
   return { days, hours, minutes, seconds };
 }
 
-const renderTimer = userDate => {
-  const nowDate = new Date();
-  const date = new Date(userSelectedDate);
-  const timeDifference = new Date(date - nowDate);
-  if (timeDifference < 0) {
-    clearInterval(timerInterval);
-    iziToast.error({
-      title: 'Error',
-      displayMode: 'once',
-      message: 'The selected date has already passed.',
-      position: 'topRight',
-      timeout: 3000,
-    });
-    document.getElementById('datetime-picker-submit').disabled = true;
+const renderTimer = () => {
+  const nowMs = Date.now();
+  const targetMs = new Date(userSelectedDate).getTime();
+  const diffMs = targetMs - nowMs;
 
+  if (diffMs <= 0) {
+    clearInterval(timerInterval);
+    timerInterval = null;
+
+    const zeroed = { days: 0, hours: 0, minutes: 0, seconds: 0 };
+    for (const key in zeroed) {
+      document.querySelector(`[data-${key}]`).textContent = '00';
+    }
+
+    iziToast.success({
+      title: 'Done',
+      displayMode: 'once',
+      message: 'Timer finished.',
+      position: 'topRight',
+      timeout: 2000,
+    });
+
+    document.getElementById('datetime-picker-submit').disabled = true;
     return;
   }
-  const milliseconds = timeDifference.getTime();
-  const convertMsResult = convertMs(milliseconds);
+
+  const convertMsResult = convertMs(diffMs);
   for (const key in convertMsResult) {
     document.querySelector(`[data-${key}]`).textContent = String(
       convertMsResult[key]
@@ -68,7 +76,7 @@ const options = {
     });
     userSelectedDate = selectedDates[0];
 
-    if (userSelectedDate < instance.now) {
+    if (!userSelectedDate || userSelectedDate.getTime() <= Date.now()) {
       document.getElementById('datetime-picker-submit').disabled = true;
       iziToast.warning({
         title: 'Warning',
@@ -79,7 +87,7 @@ const options = {
       });
     } else {
       document.getElementById('datetime-picker-submit').disabled = false;
-      renderTimer(userSelectedDate);
+      renderTimer();
     }
   },
 };
@@ -90,7 +98,11 @@ document
   .getElementById('datetime-picker-submit')
   .addEventListener('click', e => {
     e.preventDefault();
+    if (timerInterval) {
+      clearInterval(timerInterval);
+    }
+    renderTimer();
     timerInterval = setInterval(() => {
-      renderTimer(userSelectedDate);
+      renderTimer();
     }, 1000);
   });
